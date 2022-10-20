@@ -91,7 +91,9 @@ public class GPSComputer {
 		
 		// TODO - START
 		
-		throw new UnsupportedOperationException(TODO.method());
+		maxspeed = GPSUtils.findMax(this.speeds());
+		
+		return maxspeed;
 		
 		// TODO - SLUTT
 		
@@ -103,7 +105,9 @@ public class GPSComputer {
 		
 		// TODO - START
 		
-		throw new UnsupportedOperationException(TODO.method());
+		average = ((this.totalDistance()/this.totalTime())*60*60)/1000;
+		
+		return average;
 		
 		// TODO - SLUTT
 		
@@ -163,5 +167,4 @@ public class GPSComputer {
 		// TODO - SLUTT
 		
 	}
-
 }
