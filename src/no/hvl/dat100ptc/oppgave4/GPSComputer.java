@@ -1,6 +1,5 @@
 package no.hvl.dat100ptc.oppgave4;
 
-import no.hvl.dat100ptc.TODO;
 import no.hvl.dat100ptc.oppgave1.GPSPoint;
 import no.hvl.dat100ptc.oppgave2.GPSData;
 import no.hvl.dat100ptc.oppgave2.GPSDataConverter;
@@ -136,7 +135,23 @@ public class GPSComputer {
 
 		// TODO - START
 		
-		throw new UnsupportedOperationException(TODO.method());
+		if (speedmph < 10) {
+			met = 4.0;
+		} else if (speedmph < 12) {
+			met = 6.0;
+		} else if (speedmph < 14) {
+			met = 8.0;
+		} else if (speedmph < 16) {
+			met = 10.0;
+		} else if (speedmph < 20) {
+			met = 12.0;
+		} else if (speedmph > 20) {
+			met = 16.0;
+		}
+		
+		kcal = (met*weight*secs)/3600;
+		
+		return kcal;
 
 		// TODO - SLUTT
 		
@@ -148,7 +163,9 @@ public class GPSComputer {
 
 		// TODO - START
 		
-		throw new UnsupportedOperationException(TODO.method());
+		totalkcal = kcal(weight, this.totalTime(), this.averageSpeed());
+		
+		return totalkcal;
 
 		// TODO - SLUTT
 		
@@ -161,8 +178,15 @@ public class GPSComputer {
 		System.out.println("==============================================");
 
 		// TODO - START
+		
+		System.out.printf("Total time     :%11s\n", GPSUtils.formatTime(this.totalTime()));
+		System.out.printf("Total distance :%11.2f km\n", this.totalDistance());
+		System.out.printf("Total elevation:%11.2f m\n", this.totalElevation());
+		System.out.printf("Max speed      :%11.2f km/t\n", this.maxSpeed());
+		System.out.printf("Average speed  :%11.2f km/t\n", this.averageSpeed());
+		System.out.printf("Energy         :%11.2f kcal\n", this.totalKcal(WEIGHT));
 
-		throw new UnsupportedOperationException(TODO.method());
+		System.out.println("==============================================");
 		
 		// TODO - SLUTT
 		
