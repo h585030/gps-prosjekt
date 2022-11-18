@@ -45,8 +45,8 @@ public class ShowRoute extends EasyGraphics {
 		double maxlon = GPSUtils.findMax(GPSUtils.getLongitudes(gpspoints));
 		double minlon = GPSUtils.findMin(GPSUtils.getLongitudes(gpspoints));
 
-		double xstep = MAPXSIZE / (Math.abs(maxlon - minlon)); 
-		System.out.println(MAPXSIZE / (Math.abs(maxlon - minlon)));
+		double xstep = MAPXSIZE / (Math.abs(maxlon - minlon));
+		
 		return xstep;
 	}
 
@@ -65,28 +65,34 @@ public class ShowRoute extends EasyGraphics {
 		return ystep;
 
 		// TODO - SLUTT
-		
 	}
 
 	public void showRouteMap(int ybase) {
 
 		// TODO - START
 		
+		double x = MARGIN + gpspoints[0].getLongitude();
+		
+		double y = ybase/4 - gpspoints[0].getLatitude();
+		
+		double x2,y2;
+		
 		for (int i = 1; i < gpspoints.length; i++) {
 			
-			double x = xstep()/gpspoints[i-1].getLongitude()-ybase;
+			x2 = x + xstep()*(gpspoints[i].getLongitude()-gpspoints[i-1].getLongitude());
 			
-			double y = (ystep()/gpspoints[i-1].getLatitude());
+			y2 = y - ystep()*(gpspoints[i].getLatitude()-gpspoints[i-1].getLatitude());
 			
-			double x2 = (xstep()/gpspoints[i].getLongitude())-ybase;
-			
-			double y2 = (ystep()/gpspoints[i].getLatitude());
-			
-			//System.out.println(x + "\n" + y + "\n" + x2 + "\n" + y2);
-			
-			setColor(0,0,0);
+			setColor(0,255,0);
+			drawCircle((int) x, (int) y, 2);
 			drawLine((int) x, (int) y, (int) x2, (int) y2);
+
+			x = x2;
+			y = y2;
 		}
+		
+		setColor(0,0,255);
+		fillCircle((int) x, (int) y, 4);
 		
 		// TODO - SLUTT
 	}
@@ -100,9 +106,21 @@ public class ShowRoute extends EasyGraphics {
 		
 		// TODO - START
 		
-		drawString("string",40,40);
+		String[] stats = {
+				String.format("Total time     :%11s", GPSUtils.formatTime(gpscomputer.totalTime())),
+				String.format("Total distance :%11.2f km", gpscomputer.totalDistance()/1000),
+				String.format("Total elevation:%11.2f m", gpscomputer.totalElevation()),
+				String.format("Max speed      :%11.2f km/t", gpscomputer.maxSpeed()),
+				String.format("Average speed  :%11.2f km/t", gpscomputer.averageSpeed()),
+				String.format("Energy         :%11.2f kcal", gpscomputer.totalKcal(80))
+		};
+		
+		int yVal = TEXTDISTANCE;
+		for (int i = 0; i < stats.length; i++) {
+			drawString(stats[i], MARGIN, yVal);
+			yVal += TEXTDISTANCE;
+		}
 		
 		// TODO - SLUTT;
 	}
-
 }
