@@ -131,7 +131,7 @@ public class GPSComputer {
 
 		// MET: Metabolic equivalent of task angir (kcal x kg-1 x h-1)
 		double met = 0;		
-		double speedmph = speed * MS;
+		double speedmph = (speed/3.6) * MS;
 
 		// TODO - START
 		
@@ -148,7 +148,7 @@ public class GPSComputer {
 		} else if (speedmph > 20) {
 			met = 16.0;
 		}
-		
+
 		kcal = (met*weight*secs)/3600;
 		
 		return kcal;
@@ -180,7 +180,7 @@ public class GPSComputer {
 		// TODO - START
 		
 		System.out.printf("Total time     :%11s\n", GPSUtils.formatTime(this.totalTime()));
-		System.out.printf("Total distance :%11.2f km\n", this.totalDistance());
+		System.out.printf("Total distance :%11.2f km\n", this.totalDistance()/1000);
 		System.out.printf("Total elevation:%11.2f m\n", this.totalElevation());
 		System.out.printf("Max speed      :%11.2f km/t\n", this.maxSpeed());
 		System.out.printf("Average speed  :%11.2f km/t\n", this.averageSpeed());
